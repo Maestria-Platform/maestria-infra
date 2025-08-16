@@ -20,5 +20,21 @@ services:
       - "5672:5672"
       - "15672:15672"
 
+  user-service:
+    build:
+      context: ../maestria-user-service
+    container_name: maestria-user-service
+    depends_on:
+      - postgres-db
+    ports:
+      - "8081:8081"
+    environment:
+      - DB_HOST=postgres-db
+      - DB_PORT=5432
+      - DB_NAME=maestria_users
+      - DB_USER=postgres
+      - DB_PASS=admin
+
+
 volumes:
   postgres-data:
